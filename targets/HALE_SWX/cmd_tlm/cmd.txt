@@ -1,0 +1,13 @@
+COMMAND <%= target_name %> GET_FORECAST BIG_ENDIAN "Get Forecast from the /forecast API"
+  ACCESSOR openc3/accessors/http_accessor.py
+  PARAMETER HTTP_PATH 0 0 DERIVED nil nil "/forecast"
+  PARAMETER HTTP_METHOD 0 0 DERIVED nil nil "GET"
+  PARAMETER HTTP_PACKET 0 0 DERIVED nil nil "FORECAST_RESPONSE"
+  PARAMETER HTTP_ERROR_PACKET 0 0 DERIVED nil nil "ERROR_RESPONSE"
+
+COMMAND <%= target_name %> GET_NOWCAST BIG_ENDIAN "Get Nowcast from the /nowcast API"
+  ACCESSOR openc3/accessors/http_accessor.py
+  PARAMETER HTTP_PATH 0 0 DERIVED nil nil "/nowcast"
+  PARAMETER HTTP_METHOD 0 0 DERIVED nil nil "GET"
+  PARAMETER HTTP_PACKET 0 0 DERIVED nil nil "NOWCAST_RESPONSE"
+  PARAMETER HTTP_ERROR_PACKET 0 0 DERIVED nil nil "ERROR_RESPONSE"

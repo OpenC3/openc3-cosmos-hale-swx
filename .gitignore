@@ -1,0 +1,9 @@
+node_modules/
+*.gem
+tools/
+sample_data/
+.DS_Store
+.claude/
+**/__pycache__
+targets/HALE_SWX/procedures/test_data/
+**/test_data/

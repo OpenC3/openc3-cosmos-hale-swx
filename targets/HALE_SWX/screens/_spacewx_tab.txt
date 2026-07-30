@@ -1,0 +1,27 @@
+VERTICALBOX "<%= label %> Document"
+  LABELVALUE <%= target_name %> <%= packet_name %> UPDATED CONVERTED 24
+  LABELVALUE <%= target_name %> <%= packet_name %> HTTP_STATUS CONVERTED 8
+  LABELVALUE <%= target_name %> <%= packet_name %> OBSERVED_POINTS CONVERTED 8
+  LABELVALUE <%= target_name %> <%= packet_name %> PREDICTED_POINTS CONVERTED 8
+END
+HORIZONTAL 10
+  VERTICALBOX "Latest Observed Day"
+    LABELVALUE <%= target_name %> <%= packet_name %> OBSERVED_DATE CONVERTED 12
+    LABELVALUE <%= target_name %> <%= packet_name %> OBSERVED_KP_AVG FORMATTED 8
+    LABELVALUE <%= target_name %> <%= packet_name %> OBSERVED_ISN CONVERTED 8
+    LABELVALUE <%= target_name %> <%= packet_name %> OBSERVED_F107_OBS CONVERTED 8
+    LABELVALUE <%= target_name %> <%= packet_name %> OBSERVED_F107_ADJ CONVERTED 8
+    LABELVALUE <%= target_name %> <%= packet_name %> OBSERVED_CTR81_OBS CONVERTED 8
+    LABELVALUE <%= target_name %> <%= packet_name %> OBSERVED_LST81_OBS CONVERTED 8
+    # ap is limits checked, yellow at 48 (~Kp 5) and red at 100 (~Kp 6.7)
+    LABELVALUELIMITSBAR <%= target_name %> <%= packet_name %> OBSERVED_AP_AVG
+  END
+  VERTICALBOX "Next Predicted Day"
+    LABELVALUE <%= target_name %> <%= packet_name %> PREDICTED_DATE CONVERTED 12
+    LABELVALUE <%= target_name %> <%= packet_name %> PREDICTED_KP_AVG FORMATTED 8
+    LABELVALUE <%= target_name %> <%= packet_name %> PREDICTED_ISN CONVERTED 8
+    LABELVALUE <%= target_name %> <%= packet_name %> PREDICTED_F107_OBS CONVERTED 8
+    LABELVALUE <%= target_name %> <%= packet_name %> PREDICTED_F107_ADJ CONVERTED 8
+    LABELVALUELIMITSBAR <%= target_name %> <%= packet_name %> PREDICTED_AP_AVG
+  END
+END

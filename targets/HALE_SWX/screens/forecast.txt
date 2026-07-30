@@ -1,0 +1,7 @@
+SCREEN AUTO AUTO 1.0
+
+TITLE "<%= target_name %> Forecast Space Weather Charts"
+# The API is only polled every poll_period hours so allow a full day before stale
+STALE_TIME 86400
+
+HALESWX <%= target_name %> FORECAST_RESPONSE 760

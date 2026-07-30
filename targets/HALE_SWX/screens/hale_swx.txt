@@ -1,0 +1,27 @@
+SCREEN AUTO AUTO 1.0
+
+TITLE "<%= target_name %> Space Weather"
+# The API is only polled every poll_period hours so allow a full day before stale
+STALE_TIME 86400
+
+TABBOOK
+  # Both tabs render the same partial so the two packets can never drift apart
+  TABITEM "Forecast"
+    <%= render "_spacewx_tab.txt", locals: {target_name: target_name, packet_name: "FORECAST_RESPONSE", label: "Forecast"} %>
+  END
+
+  TABITEM "Nowcast"
+    <%= render "_spacewx_tab.txt", locals: {target_name: target_name, packet_name: "NOWCAST_RESPONSE", label: "Nowcast"} %>
+  END
+
+  TABITEM "Commanding"
+    VERTICALBOX "Request Data Now"
+      BUTTON "Get Forecast" 'api.cmd("<%= target_name %> GET_FORECAST")'
+      BUTTON "Get Nowcast" 'api.cmd("<%= target_name %> GET_NOWCAST")'
+    END
+    VERTICALBOX "Last Error Response"
+      LABELVALUE <%= target_name %> ERROR_RESPONSE HTTP_STATUS CONVERTED 8
+      TEXTBOX <%= target_name %> ERROR_RESPONSE BODY 600 100
+    END
+  END
+END

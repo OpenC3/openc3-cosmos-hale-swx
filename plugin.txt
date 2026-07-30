@@ -1,0 +1,30 @@
+# Set VARIABLEs here to allow variation in your plugin
+
+VARIABLE hale_target_name HALE_SWX 
+VARIABLE_DESCRIPTION "Target name for the Hale SWX Plugin"
+VARIABLE hostname api.haleswx.com
+VARIABLE_DESCRIPTION "API hostname"
+VARIABLE protocol https
+VARIABLE_DESCRIPTION "Protocol for the API (https)"
+VARIABLE port 443
+VARIABLE_DESCRIPTION "Port for the API"
+VARIABLE poll_period 12
+VARIABLE_DESCRIPTION "Polling interval in hours (default 12 = 12 hours, 0 to disable)"
+VARIABLE read_timeout 30.0
+VARIABLE_DESCRIPTION "Seconds to wait for an API response"
+VARIABLE connect_timeout 10.0
+VARIABLE_DESCRIPTION "Seconds to wait for the connection to be established"
+
+TARGET HALE_SWX <%= hale_target_name %>
+INTERFACE <%= hale_target_name %>_INT openc3/interfaces/http_client_interface.py <%= hostname %> <%= port %> <%= protocol %> 5.0 <%= read_timeout %> <%= connect_timeout %>
+  MAP_TARGET <%= hale_target_name %>
+  PROTOCOL WRITE api_key_protocol.py X-API-KEY HALE_API_KEY
+  SECRET ENV HALE_API_KEY HALE_API_KEY
+  OPTION CONNECT_CMD DONT_LOG "<%= hale_target_name %> GET_FORECAST"
+  OPTION CONNECT_CMD DONT_LOG "<%= hale_target_name %> GET_NOWCAST"
+  <% if poll_period.to_f > 0.0 %>
+  OPTION PERIODIC_CMD DONT_LOG <%= poll_period.to_f * 3600.0 %> "<%= hale_target_name %> GET_FORECAST"
+  OPTION PERIODIC_CMD DONT_LOG <%= poll_period.to_f * 3600.0 %> "<%= hale_target_name %> GET_NOWCAST"
+  <% end %>
+
+WIDGET HALESWX "HaleSwx Widget"

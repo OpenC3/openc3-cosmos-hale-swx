@@ -1,0 +1,9 @@
+<%= render "_spacewx_response.txt", locals: {target_name: target_name, packet_name: "FORECAST_RESPONSE", description: "Response from the /forecast API"} %>
+
+<%= render "_spacewx_response.txt", locals: {target_name: target_name, packet_name: "NOWCAST_RESPONSE", description: "Response from the /nowcast API"} %>
+
+TELEMETRY <%= target_name %> ERROR_RESPONSE BIG_ENDIAN "Error response from the HaleSWx API"
+  ACCESSOR openc3/accessors/http_accessor.py space_wx_accessor.py
+  ITEM HTTP_STATUS 0 0 DERIVED "HTTP response status code"
+  APPEND_ITEM BODY 8192 STRING "Raw response body"
+    KEY $.raw

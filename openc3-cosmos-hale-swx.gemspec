@@ -5,13 +5,12 @@ Gem::Specification.new do |s|
   s.name = 'openc3-cosmos-hale-swx'
   s.summary = 'Hale Space Weather Forecast'
   s.description = <<-EOF
-    Hale Space Weather Forecast Plugin
+    Hale Space Weather Forecast Plugin. Please contact info@haleswx.com for an API Key to set in your Secrets (HALE_API_KEY).
   EOF
   s.license = 'OpenC3'
   s.authors = ['Clay Ito']
   s.email = ['clay@openc3.com']
   s.homepage = 'https://github.com/OpenC3/openc3-cosmos-hale-swx'
-  s.version = "1.0.0"
   s.platform = Gem::Platform::RUBY
 
   s.metadata = {

@@ -66,6 +66,8 @@ PROTOCOL WRITE api_key_protocol.py X-API-KEY HALE_API_KEY
 SECRET ENV HALE_API_KEY HALE_API_KEY
 ```
 
+Please contact Hale directly at info@haleswx.com for an API Key.
+
 ## Limits
 
 `OBSERVED_AP_AVG` and `PREDICTED_AP_AVG` are limits checked:

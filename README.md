@@ -57,14 +57,17 @@ every `poll_period` hours via `OPTION PERIODIC_CMD`.
 
 ## The API key
 
-The key is never written into the plugin configuration or the command log. It is
-delivered as an environment variable by the `SECRET` keyword and added to the
-request headers at send time by a write protocol:
+The key is delivered as an environment variable by the `SECRET` keyword and
+added to private copies of the request metadata and headers at send time.
+This keeps the injected key out of the command packet's logged `extra` fields:
 
 ```
 PROTOCOL WRITE api_key_protocol.py X-API-KEY HALE_API_KEY
 SECRET ENV HALE_API_KEY HALE_API_KEY
 ```
+
+Keep the HTTP interface's `include_request_in_response` option disabled (the
+default); enabling it includes request headers in telemetry metadata.
 
 Please contact Hale directly at info@haleswx.com for an API Key.
 

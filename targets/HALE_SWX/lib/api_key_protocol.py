@@ -18,9 +18,9 @@ from openc3.utilities.logger import Logger
 class ApiKeyProtocol(Protocol):
     """Injects the HaleSWx API key into every outgoing HTTP request.
 
-    The key is never stored in the plugin configuration or in the command log.
-    It is delivered to the interface container by the SECRET keyword in
-    plugin.txt which sets the given environment variable.
+    The SECRET keyword in plugin.txt delivers the key through an environment
+    variable. Injection uses private copies of the request metadata and headers
+    so it does not add the key to the command packet's logged extra fields.
     """
 
     def __init__(self, header="X-API-KEY", env_var="HALE_API_KEY", allow_empty_data=None):
@@ -29,17 +29,14 @@ class ApiKeyProtocol(Protocol):
         self.env_var = env_var
         self.warned = False
 
-    # write_data is called after the packet has been converted to data / extra
-    # so the API key is added to the request headers only, not to the packet
-    # that was logged by the command log microservice.
+    # HTTP conversion can return the packet's shared extra dictionary. Command
+    # logging happens after the write, so copy both dictionaries we modify.
     def write_data(self, data, extra=None):
         api_key = os.environ.get(self.env_var)
         if api_key:
-            extra = extra or {}
-            headers = extra.get("HTTP_HEADERS")
-            if headers is None:
-                headers = {}
-                extra["HTTP_HEADERS"] = headers
+            extra = dict(extra or {})
+            headers = dict(extra.get("HTTP_HEADERS") or {})
+            extra["HTTP_HEADERS"] = headers
             headers[self.header] = api_key
         elif not self.warned:
             # Only warn once to avoid flooding the log on every periodic command
